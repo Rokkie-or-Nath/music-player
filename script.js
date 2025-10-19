@@ -49,7 +49,7 @@ let songs = [
         lyrics: [
             { time: 0.2, text: "She said, Careful, or you'll lose it" },
             { time: 4, text: "But, girl, I'm only human," },
-            { time: 8.3, text: "And I know there's a blade where your heart is" },
+            { time: 7.1, text: "And I know there's a blade where your heart is" },
             { time: 10, text: "And you know how to use it" },
             { time: 13, text: "And you can take my flesh if you want girl" },
             { time: 16, text: "But, baby, don't abuse it (Calm down)" },
