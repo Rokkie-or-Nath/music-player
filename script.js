@@ -34,8 +34,8 @@ const playerNextBtn = document.getElementById('playerNextBtn');
 const playerRepeatBtn = document.getElementById('playerRepeatBtn');
 const playerShuffleBtn = document.getElementById('playerShuffleBtn');
 const playerVolumeSlider = document.getElementById('playerVolumeSlider');
-const playerSpeedSlider = document.getElementById('playerSpeedSlider'); // Tambahkan ini
-const currentSpeedDisplay = document.getElementById('currentSpeedDisplay'); // Tambahkan ini
+const playerSpeedSlider = document.getElementById('playerSpeedSlider');
+const currentSpeedDisplay = document.getElementById('currentSpeedDisplay');
 
 // App State
 let songs = [
@@ -46,12 +46,11 @@ let songs = [
         album: "Beauty in Death",
         albumArtUrl: "https://tse3.mm.bing.net/th?id=OIP.VwivM--7Xx_SmgsqXBLi8AAAAA&pid=Api&P=0&h=220",
         audioSrc: "audio/consume.mp3",
-        videoBgSrc: "videos/consume.mp4", // Path video background khusus lagu ini
-        // Lirik dengan timestamp dalam detik
+        videoBgSrc: "videos/consume.mp4",
         lyrics: [
-            { time: 0.8, text: "She said, Careful, or you'll lose it" },
+            { time: 0.2, text: "She said, Careful, or you'll lose it" },
             { time: 4, text: "But, girl, I'm only human," },
-            { time: 7, text: "And I know there's a blade where your heart is" },
+            { time: 8.3, text: "And I know there's a blade where your heart is" },
             { time: 10, text: "And you know how to use it" },
             { time: 13, text: "And you can take my flesh if you want girl" },
             { time: 16, text: "But, baby, don't abuse it (Calm down)" },
@@ -66,29 +65,48 @@ let songs = [
             { time: 47, text: "Oh, no, no, no, ooh-ooh" },
         ]
     },
+    {
+        id: 2,
+        title: "Stan",
+        artist: "Eminem",
+        album: "The Martial Mathers",
+        albumArtUrl: "https://upload.wikimedia.org/wikipedia/en/e/e8/Eminem_-_Stan_CD_cover.jpg",
+        audioSrc: "audio/Stan.mp3",
+        videoBgSrc: "videos/stan.mp4",
+        lyrics: [
+            { time: 0.2, text: "And even if I could, It'd all be grey" },
+            { time: 4, text: "But your picture on my wall" },
+            { time: 6, text: "It reminds me that its not so bad, its not so bad (bad)" },
+            { time: 13, text: "My tea's gone cold, I'm wondering Why" },
+            { time: 17, text: "Got out of bet at all" },
+            { time: 21, text: "The morning rain clouds up my window (window)" },
+            { time: 25, text: "And I can't see at all" },
+            { time: 28, text: "And even If I could, itd be all be grey" },
+            { time: 31.8, text: "But your picture on my wall" },
+            { time: 34.5    , text: " It reminds me that its not so bad, its not so bad (bad)" },
+        ]   
+    },
 ];
 
 let currentSongIndex = 0;
 let isPlaying = false;
 let isShuffle = false;
-let repeatMode = 0; // 0: no repeat, 1: repeat one, 2: repeat all
+let repeatMode = 0;
 
-// --- Page Navigation ---
 function showHomePage() {
     playerPage.classList.remove('active');
-    songDetailPage.classList.remove('active'); // Pastikan detail page disembunyikan
+    songDetailPage.classList.remove('active');
     homePage.classList.add('active');
 
     bodyElement.classList.remove('player-active-bg');
     bodyElement.classList.remove('detail-active-bg');
-    backgroundVideoContainer.classList.remove('active'); // Sembunyikan video background
-    backgroundVideo.pause(); // Jeda video background
-    backgroundVideo.src = ""; // Kosongkan src video
+    backgroundVideoContainer.classList.remove('active');
+    backgroundVideo.pause();
+    backgroundVideo.src = "";
     backgroundVideo.load();
-    pauseTrack(); // Jeda musik saat kembali ke home
+    pauseTrack(); 
 }
 
-// Fungsi untuk menampilkan halaman detail lagu (tetap dipertahankan, tapi tidak dipanggil dari song list click)
 function showSongDetailPage(song) {
     homePage.classList.remove('active');
     playerPage.classList.remove('active');

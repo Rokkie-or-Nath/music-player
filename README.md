@@ -13,3 +13,7 @@ The player uses JavaScript functions to load songs, display lyrics, and sync the
 
 ## 💻 Made by
 Rokkie-or-Nath
+
+## songs
+- consume 
+- stan - eminem
