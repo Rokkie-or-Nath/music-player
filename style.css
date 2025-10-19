@@ -18,8 +18,9 @@ body.player-active-bg {
     background-color: #1a002c;
 }
 
+
 body.detail-active-bg {
-    background-color: #0e1459;
+    background-color: #331A40; 
 }
 
 .video-background-container {
@@ -164,6 +165,7 @@ header h1 {
 }
 .back-btn:hover {
     background-color: #380056;
+}
 .back-btn i {
     margin-right: 0.5rem;
 }
@@ -228,10 +230,8 @@ header h1 {
     line-height: 1.6;
     font-size: 0.95rem;
     color: #d0d0d0;
-
 }
 
-/* Custom Scrollbar untuk Lirik */
 .lyrics-container::-webkit-scrollbar {
     width: 8px;
 }
@@ -523,5 +523,4 @@ header h1 {
 .lyric-line.highlight {
     color: #FFFFFF; 
     font-weight: 600; 
-    }
 }
