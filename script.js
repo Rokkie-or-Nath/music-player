@@ -4,18 +4,18 @@ const playerPage = document.getElementById('playerPage');
 const songListElement = document.getElementById('songList');
 
 const backToHomeFromDetailBtn = document.getElementById('backToHomeFromDetailBtn');
-const backToHomeBtn = document.getElementById('backToHomeBtn'); // Tombol kembali dari player ke home
+const backToHomeBtn = document.getElementById('backToHomeBtn');
 const bodyElement = document.body;
 
 const backgroundVideoContainer = document.querySelector('.video-background-container');
 const backgroundVideo = document.getElementById('backgroundVideo');
 
-// Elemen untuk Halaman Detail Lagu (tidak akan langsung digunakan saat klik lagu, tapi tetap di-load)
+
 const detailAlbumArt = document.getElementById('detailAlbumArt');
 const detailTrackTitle = document.getElementById('detailTrackTitle');
 const detailTrackArtist = document.getElementById('detailTrackArtist');
 const detailAlbumName = document.getElementById('detailAlbumName');
-const playFromDetailBtn = document.getElementById('playFromDetailBtn'); // Tombol play di halaman detail
+const playFromDetailBtn = document.getElementById('playFromDetailBtn');
 
 const audioPlayer = document.getElementById('audioPlayer');
 const albumArtPlayer = document.getElementById('albumArt');
@@ -37,7 +37,6 @@ const playerVolumeSlider = document.getElementById('playerVolumeSlider');
 const playerSpeedSlider = document.getElementById('playerSpeedSlider');
 const currentSpeedDisplay = document.getElementById('currentSpeedDisplay');
 
-// App State
 let songs = [
     {
         id: 1,
@@ -120,8 +119,8 @@ function showSongDetailPage(song) {
     bodyElement.classList.remove('player-active-bg');
     bodyElement.classList.add('detail-active-bg');
     backgroundVideoContainer.classList.remove('active');
-    backgroundVideo.pause(); // Jeda video background
-    backgroundVideo.src = ""; // Kosongkan src video
+    backgroundVideo.pause();
+    backgroundVideo.src = "";
     backgroundVideo.load();
 }
 
@@ -132,7 +131,7 @@ function showPlayerPage() {
 
     bodyElement.classList.remove('detail-active-bg');
     bodyElement.classList.add('player-active-bg');
-    backgroundVideoContainer.classList.add('active'); // Tampilkan video background
+    backgroundVideoContainer.classList.add('active');
 
     const currentSong = songs[currentSongIndex];
     if (currentSong && currentSong.videoBgSrc) {
@@ -141,7 +140,7 @@ function showPlayerPage() {
         backgroundVideo.play().catch(e => console.error("Error playing video background:", e));
     } else {
         backgroundVideo.src = "";
-        backgroundVideo.load(); // Kosongkan src jika tidak ada video khusus
+        backgroundVideo.load();
     }
 }
 
@@ -162,34 +161,30 @@ function renderSongList() {
                 <p>${song.artist}</p>
             </div>
         `;
-        // --- Perubahan Penting di sini ---
-        // Saat item lagu diklik, langsung muat & putar lagu lalu tampilkan halaman player
+
         listItem.addEventListener('click', () => {
             currentSongIndex = index;
             loadSong(songs[currentSongIndex]);
             playTrack();
-            showPlayerPage(); // Langsung pindah ke halaman pemutar musik
+            showPlayerPage();
         });
 
-        // Event listener untuk hover
         listItem.addEventListener('mouseenter', () => {
-            // Hanya aktifkan video background jika kita di halaman home
             if (homePage.classList.contains('active') && song.videoBgSrc) {
                 backgroundVideo.src = song.videoBgSrc;
                 backgroundVideo.load();
                 backgroundVideoContainer.classList.add('active');
                 backgroundVideo.play().catch(e => console.error("Error playing video on hover:", e));
-                bodyElement.classList.add('player-active-bg'); // Tambahkan kelas untuk warna background body
+                bodyElement.classList.add('player-active-bg');
             }
         });
         listItem.addEventListener('mouseleave', () => {
-            // Sembunyikan video background hanya jika kita di halaman home
             if (homePage.classList.contains('active')) {
                 backgroundVideoContainer.classList.remove('active');
-                backgroundVideo.pause(); // Jeda video saat mouse meninggalkan
-                backgroundVideo.src = ""; // Kosongkan src agar tidak memutar di background
+                backgroundVideo.pause();
+                backgroundVideo.src = ""
                 backgroundVideo.load();
-                bodyElement.classList.remove('player-active-bg'); // Hapus kelas warna background body
+                bodyElement.classList.remove('player-active-bg');
             }
         });
 
@@ -204,7 +199,7 @@ function loadSong(song) {
         albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Error";
         playerTrackTitle.textContent = "Lagu Tidak Tersedia";
         playerTrackArtist.textContent = "-";
-        lyricsContainer.innerHTML = "<p>Lirik tidak tersedia.</p>"; // Ganti textContent dengan innerHTML
+        lyricsContainer.innerHTML = "<p>Lirik tidak tersedia.</p>";
         audioPlayer.src = "";
         playerCurrentTime.textContent = "0:00";
         playerTotalDuration.textContent = "0:00";
@@ -215,7 +210,7 @@ function loadSong(song) {
     playerTrackTitle.textContent = song.title;
     playerTrackArtist.textContent = song.artist;
     
-    renderLyrics(song.lyrics); // Panggil fungsi renderLyrics
+    renderLyrics(song.lyrics);
     
     audioPlayer.src = song.audioSrc;
 
@@ -226,9 +221,8 @@ function loadSong(song) {
     updatePlayPauseIcon();
 }
 
-// Fungsi baru untuk merender lirik
 function renderLyrics(lyrics) {
-    lyricsContainer.innerHTML = ''; // Bersihkan container lirik
+    lyricsContainer.innerHTML = '';
     if (!lyrics || lyrics.length === 0) {
         lyricsContainer.innerHTML = "<p>Lirik tidak tersedia untuk lagu ini.</p>";
         return;
@@ -237,11 +231,9 @@ function renderLyrics(lyrics) {
     lyrics.forEach(line => {
         const span = document.createElement('span');
         span.textContent = line.text;
-        span.setAttribute('data-time', line.time); // Simpan timestamp di data-attribute
-        span.classList.add('lyric-line'); // Tambahkan kelas untuk styling
+        span.setAttribute('data-time', line.time);
+        span.classList.add('lyric-line');
         lyricsContainer.appendChild(span);
-        // Hapus penambahan <br> secara manual, gunakan CSS display:block atau flexbox
-        // lyricsContainer.appendChild(document.createElement('br'));
     });
 }
 
@@ -283,7 +275,7 @@ function prevTrack() {
     }
     loadSong(songs[currentSongIndex]);
     playTrack();
-    showPlayerPage(); // Perbarui video background
+    showPlayerPage();
 }
 
 function nextTrackLogic() {
@@ -295,14 +287,13 @@ function nextTrackLogic() {
     }
     loadSong(songs[currentSongIndex]);
     playTrack();
-    showPlayerPage(); // Perbarui video background
+    showPlayerPage();
 }
 
 function nextTrack() {
     if (songs.length === 0) return;
 
     if (repeatMode === 1 && audioPlayer.ended) {
-        // Handled by audio.loop = true
     } else if (isShuffle) {
         playRandomTrack();
     } else {
@@ -321,7 +312,7 @@ function nextTrack() {
         loadSong(songs[currentSongIndex]);
         playTrack();
     }
-    showPlayerPage(); // Perbarui video background
+    showPlayerPage();
 }
 
 function playRandomTrack() {
@@ -336,7 +327,7 @@ function playRandomTrack() {
     }
     loadSong(songs[currentSongIndex]);
     playTrack();
-    showPlayerPage(); // Perbarui video background
+    showPlayerPage();
 }
 
 
@@ -345,16 +336,14 @@ audioPlayer.addEventListener('timeupdate', () => {
         const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
         playerProgressBar.style.width = `${progressPercent}%`;
         playerCurrentTime.textContent = formatTime(audioPlayer.currentTime);
-        
-        // --- Logic highlight lirik ---
+    
         const currentTime = audioPlayer.currentTime;
         const lyricLines = lyricsContainer.querySelectorAll('.lyric-line');
         let highlightedLine = null;
 
         lyricLines.forEach((line, index) => {
             const lineTime = parseFloat(line.getAttribute('data-time'));
-            // Tentukan waktu berakhir baris lirik ini. Jika ini baris terakhir, anggap berakhir di akhir lagu.
-            // Atau, lebih baik, anggap berakhir tepat sebelum baris berikutnya dimulai.
+
             let nextLineTime = Infinity; 
             if (index + 1 < lyricLines.length) {
                 nextLineTime = parseFloat(lyricLines[index + 1].getAttribute('data-time'));
@@ -368,17 +357,14 @@ audioPlayer.addEventListener('timeupdate', () => {
             }
         });
 
-        // --- Auto-scroll lirik hanya jika baris yang disorot tidak terlihat ---
         if (highlightedLine) {
             const containerRect = lyricsContainer.getBoundingClientRect();
             const lineRect = highlightedLine.getBoundingClientRect();
 
-            // Periksa apakah baris di luar viewport kontainer
             const isOutsideTop = lineRect.top < containerRect.top;
             const isOutsideBottom = lineRect.bottom > containerRect.bottom;
 
             if (isOutsideTop || isOutsideBottom) {
-                // Scroll agar baris terdekat muncul di dalam viewport, dengan animasi smooth
                 highlightedLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
@@ -455,41 +441,37 @@ audioPlayer.addEventListener('ended', () => {
     }
 });
 
-// Event Listeners untuk tombol navigasi
-backToHomeFromDetailBtn.addEventListener('click', showHomePage); // Dari halaman detail ke home
-backToHomeBtn.addEventListener('click', showHomePage); // Dari halaman player ke home
+backToHomeFromDetailBtn.addEventListener('click', showHomePage);
+backToHomeBtn.addEventListener('click', showHomePage);
 
-// Event Listener untuk tombol play dari halaman detail (jika Anda ingin menggunakannya)
 playFromDetailBtn.addEventListener('click', () => {
     loadSong(songs[currentSongIndex]);
     playTrack();
     showPlayerPage();
 });
 
-// --- Initialization ---
 function init() {
-    console.log("Initializing..."); // Tambahkan log untuk inisialisasi
-    console.log("Songs array length:", songs.length); // Periksa jumlah lagu
-    console.log("songListElement:", songListElement); // Cek apakah songListElement ditemukan
+    console.log("Initializing...");
+    console.log("Songs array length:", songs.length);
+    console.log("songListElement:", songListElement);
 
-    renderSongList(); // Ini yang merender daftar lagu
+    renderSongList();
     
     if (songs.length > 0) {
         loadSong(songs[currentSongIndex]);
     } else {
-        // Ini akan ditampilkan jika array songs kosong
         albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Musik";
         playerTrackTitle.textContent = "Tidak Ada Lagu";
         playerTrackArtist.textContent = "Tambahkan lagu";
         lyricsContainer.innerHTML = "<p>Silakan tambahkan lagu dari daftar.</p>";
     }
     audioPlayer.volume = playerVolumeSlider.value;
-    audioPlayer.playbackRate = playerSpeedSlider.value; // Atur kecepatan awal
-    currentSpeedDisplay.textContent = `${audioPlayer.playbackRate.toFixed(2)}x`; // Perbarui tampilan kecepatan
+    audioPlayer.playbackRate = playerSpeedSlider.value;
+    currentSpeedDisplay.textContent = `${audioPlayer.playbackRate.toFixed(2)}x`;
     updatePlayPauseIcon();
     updateRepeatButtonUI();
-    showHomePage(); // Mulai dari halaman daftar lagu
-    console.log("Initialization complete."); // Log selesai inisialisasi
+    showHomePage();
+    console.log("Initialization complete.");
 }
 
 init();
