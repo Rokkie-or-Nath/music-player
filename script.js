@@ -85,6 +85,25 @@ let songs = [
             { time: 34.5    , text: " It reminds me that its not so bad, its not so bad (bad)" },
         ]   
     },
+    {
+        id: 3,
+        title: "Sad",
+        artist: "xxxtentacion",
+        album: "genius",
+        albumArtUrl: "https://images.genius.com/cefcf70065cf258281a354367542be42.1000x1000x1.jpg",
+        audioSrc: "audio/sad.mp3",
+        videoBgSrc: "videos/sad.mp4",
+        lyrics: [
+            { time: 4.7, text: "Who am I? Someone that's afraid to let go, uh" },
+            { time: 8, text: "You decide if you're ever gonna let me know, yeah" },
+            { time: 11, text: "Suicide if you ever try to let go, uh" },
+            { time: 14.7, text: "I'm sad, I know, yeah, I'm sad, I know, yeah" },
+            { time: 17.8, text: "Who am I? Someone that's afraid to let go, uh" },
+            { time: 21, text: "You decide if you're ever gonna let me know, yeah" },
+            { time: 24, text: "Suicide if you ever try to let go, uh" },
+            { time: 27.3, text: "I'm sad, I know, yeah, I'm sad, I know, yeah" },
+        ]   
+    },
 ];
 
 let currentSongIndex = 0;
