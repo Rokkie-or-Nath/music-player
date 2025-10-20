@@ -110,7 +110,7 @@ header h1 {
 }
 
 .song-list li {
-    background-color: #150056;
+    backdrop-filter: blur(12px);
     padding: 1rem 1.5rem;
     margin-bottom: 0.75rem;
     border-radius: 0.75rem;
@@ -122,7 +122,7 @@ header h1 {
 }
 
 .song-list li:hover {
-    background-color: #8a5cf647;
+    background-color: #150056;
     transform: translateY(-2px);
 }
 
@@ -235,7 +235,7 @@ header h1 {
 .lyrics-container {
     height: 180px;
     overflow-y: auto;
-    background: radial-gradient(circle at top left, #06004d43, #0c002c3d);
+    background: radial-gradient(circle at top left, #05003b43, #0c002c3d);
     padding: 1rem;
     border-radius: 0.5rem;
     margin-bottom: 1.5rem;
