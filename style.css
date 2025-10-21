@@ -75,7 +75,6 @@ body.detail-active-bg {
     width: 100%;
     max-width: 800px;
     height: 100%;
-    margin-bottom: 150px;
     padding: 1rem;
     display: none;
     flex-direction: column;
@@ -166,12 +165,12 @@ header h1 {
 
 .back-btn {
     position: absolute;
-    top: 1.5rem;
+    top: 3.5rem;
     left: 1.5rem;
     background-color: #0a00563a;
     color: #fff;
     border: none;
-    padding: 0.6rem 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 2rem;
     cursor: pointer;
     font-size: 0.9rem;
