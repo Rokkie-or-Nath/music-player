@@ -75,7 +75,9 @@ let songs = [
         lyrics: [
             { time: 0.2, text: "And even if I could, It'd all be grey" },
             { time: 4, text: "But your picture on my wall" },
-            { time: 6, text: "It reminds me that its not so bad, its not so bad (bad)" },
+            { time: 6.9, text: "It reminds me that its not so bad," },
+            { time: 11, text: "its not so bad (bad)" },
+            { time: 13, text: "-" },
             { time: 13, text: "My tea's gone cold, I'm wondering Why" },
             { time: 17, text: "Got out of bet at all" },
             { time: 21, text: "The morning rain clouds up my window (window)" },
@@ -102,6 +104,26 @@ let songs = [
             { time: 21, text: "You decide if you're ever gonna let me know, yeah" },
             { time: 24, text: "Suicide if you ever try to let go, uh" },
             { time: 27.3, text: "I'm sad, I know, yeah, I'm sad, I know, yeah" },
+        ]   
+    },
+        {
+        id: 4,
+        title: "Lilith",
+        artist: "Saint evangeline",
+        album: "Saint",
+        albumArtUrl: "https://f4.bcbits.com/img/a3982373264_10.jpg",
+        audioSrc: "audio/lilith.mp3",
+        videoBgSrc: "videos/young_and_beautiful.mp4",
+        lyrics: [
+            { time: 1.8, text: "Lilith, you siren" },
+            { time: 6, text: "How could you do this to me?" },
+            { time: 10.3, text: "Lilith, I'm dyin'" },
+            { time: 15, text: "Why won't you set me free?" },
+            { time: 18, text: "-" },
+            { time: 18, text: "I tried to scream but lilies clouded my mind" },
+            { time: 22, text: "The petals softly floating into my eyes" },
+            { time: 26.5, text: "I felt your fingers slowly crawl up my spine" },
+            { time: 31, text: "We didn't have to sink for you to be mine" },
         ]   
     },
 ];
