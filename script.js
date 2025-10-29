@@ -189,7 +189,7 @@ function showPlayerPage() {
 function renderSongList() {
     songListElement.innerHTML = '';
     if (songs.length === 0) {
-        songListElement.innerHTML = '<li class="loading-songs">Tidak ada lagu tersedia.</li>';
+        songListElement.innerHTML = '<li class="loading-songs">No song available.</li>';
         return;
     }
     songs.forEach((song, index) => {
