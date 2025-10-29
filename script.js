@@ -238,9 +238,9 @@ function loadSong(song) {
     if (!song) {
         console.error("Lagu tidak ditemukan!");
         albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Error";
-        playerTrackTitle.textContent = "Lagu Tidak Tersedia";
+        playerTrackTitle.textContent = "No Song";
         playerTrackArtist.textContent = "-";
-        lyricsContainer.innerHTML = "<p>Lirik tidak tersedia.</p>";
+        lyricsContainer.innerHTML = "<p>Lyrics not available.</p>";
         audioPlayer.src = "";
         playerCurrentTime.textContent = "0:00";
         playerTotalDuration.textContent = "0:00";
@@ -265,7 +265,7 @@ function loadSong(song) {
 function renderLyrics(lyrics) {
     lyricsContainer.innerHTML = '';
     if (!lyrics || lyrics.length === 0) {
-        lyricsContainer.innerHTML = "<p>Lirik tidak tersedia untuk lagu ini.</p>";
+        lyricsContainer.innerHTML = "<p>Lyrics not available for this song.</p>";
         return;
     }
 
@@ -284,12 +284,12 @@ function playTrack() {
         if (songs.length > 0) {
             loadSong(songs[currentSongIndex]);
         } else {
-            console.log("Tidak ada lagu untuk dimainkan.");
+            console.log("There is no song to play.");
             return;
         }
     }
     isPlaying = true;
-    audioPlayer.play().catch(error => console.error("Error saat play:", error));
+    audioPlayer.play().catch(error => console.error("Error playing:", error));
     updatePlayPauseIcon();
 }
 
@@ -502,9 +502,9 @@ function init() {
         loadSong(songs[currentSongIndex]);
     } else {
         albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Musik";
-        playerTrackTitle.textContent = "Tidak Ada Lagu";
-        playerTrackArtist.textContent = "Tambahkan lagu";
-        lyricsContainer.innerHTML = "<p>Silakan tambahkan lagu dari daftar.</p>";
+        playerTrackTitle.textContent = "No Song";
+        playerTrackArtist.textContent = "Add a song";
+        lyricsContainer.innerHTML = "<p>Please add songs from the list.</p>";
     }
     audioPlayer.volume = playerVolumeSlider.value;
     audioPlayer.playbackRate = playerSpeedSlider.value;
