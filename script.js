@@ -2,6 +2,7 @@ const homePage = document.getElementById('homePage');
 const songDetailPage = document.getElementById('songDetailPage');
 const playerPage = document.getElementById('playerPage');
 const songListElement = document.getElementById('songList');
+const playlistSongs = document.getElementById('playlistSongs');
 
 const backToHomeFromDetailBtn = document.getElementById('backToHomeFromDetailBtn');
 const backToHomeBtn = document.getElementById('backToHomeBtn');
@@ -131,7 +132,7 @@ let songs = [
 let currentSongIndex = 0;
 let isPlaying = false;
 let isShuffle = false;
-let repeatMode = 0;
+let repeatMode = 2;
 
 function showHomePage() {
     playerPage.classList.remove('active');
@@ -236,7 +237,7 @@ function renderSongList() {
 // --- Player Logic ---
 function loadSong(song) {
     if (!song) {
-        console.error("Lagu tidak ditemukan!");
+        console.error("Song not found!");
         albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Error";
         playerTrackTitle.textContent = "No Song";
         playerTrackArtist.textContent = "-";
@@ -334,8 +335,13 @@ function nextTrackLogic() {
 function nextTrack() {
     if (songs.length === 0) return;
 
-    if (repeatMode === 1 && audioPlayer.ended) {
-    } else if (isShuffle) {
+    if (repeatMode === 1) {
+        audioPlayer.currentTime = 0;
+        playTrack();
+        return;
+    }
+    
+    if (isShuffle) {
         playRandomTrack();
     } else {
         currentSongIndex++;
@@ -346,7 +352,6 @@ function nextTrack() {
                 currentSongIndex = songs.length - 1;
                 loadSong(songs[currentSongIndex]);
                 pauseTrack();
-                audioPlayer.currentTime = audioPlayer.duration;
                 return;
             }
         }
@@ -429,7 +434,7 @@ playerVolumeSlider.addEventListener('input', (e) => {
     audioPlayer.volume = e.target.value;
 });
 
-// Event Listener untuk slider kecepatan
+// Event listener for speed slider
 playerSpeedSlider.addEventListener('input', (e) => {
     audioPlayer.playbackRate = parseFloat(e.target.value);
     currentSpeedDisplay.textContent = `${audioPlayer.playbackRate.toFixed(2)}x`;
@@ -449,18 +454,18 @@ playerRepeatBtn.addEventListener('click', () => {
 });
 
 function updateRepeatButtonUI() {
-    playerRepeatBtn.classList.remove('active-feature');
+    playerRepeatBtn.classList.remove('repeat-off', 'repeat-one', 'repeat-all');
     audioPlayer.loop = false;
 
     if (repeatMode === 0) {
         playerRepeatBtn.innerHTML = '<i class="fas fa-repeat"></i>';
+        playerRepeatBtn.classList.add('repeat-off');
     } else if (repeatMode === 1) {
         playerRepeatBtn.innerHTML = '<i class="fas fa-repeat-1"></i>';
-        playerRepeatBtn.classList.add('active-feature');
-        audioPlayer.loop = true;
+        playerRepeatBtn.classList.add('repeat-one');
     } else {
         playerRepeatBtn.innerHTML = '<i class="fas fa-repeat"></i>';
-        playerRepeatBtn.classList.add('active-feature');
+        playerRepeatBtn.classList.add('repeat-all');
     }
 }
 
@@ -501,7 +506,7 @@ function init() {
     if (songs.length > 0) {
         loadSong(songs[currentSongIndex]);
     } else {
-        albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Musik";
+        albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Music";
         playerTrackTitle.textContent = "No Song";
         playerTrackArtist.textContent = "Add a song";
         lyricsContainer.innerHTML = "<p>Please add songs from the list.</p>";
@@ -513,6 +518,117 @@ function init() {
     updateRepeatButtonUI();
     showHomePage();
     console.log("Initialization complete.");
+}
+
+// Navigation functionality
+function initNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+            const page = item.getAttribute('data-page');
+            handleNavigation(page);
+        });
+    });
+}
+
+function handleNavigation(page) {
+    switch(page) {
+        case 'home':
+            showHomePage();
+            break;
+        case 'profile':
+            alert('Profile page - Coming soon!');
+            break;
+        case 'settings':
+            alert('Settings page - Coming soon!');
+            break;
+        case 'messages':
+            alert('Messages page - Coming soon!');
+            break;
+        case 'logout':
+            if(confirm('Are you sure you want to logout?')) {
+                alert('Logged out successfully!');
+            }
+            break;
+    }
+}
+
+// Playlist functionality
+function renderPlaylist(filteredSongs = songs) {
+    playlistSongs.innerHTML = '';
+    if (filteredSongs.length === 0) {
+        playlistSongs.innerHTML = '<li class="loading-songs">No songs found</li>';
+        return;
+    }
+    filteredSongs.forEach((song, index) => {
+        const originalIndex = songs.indexOf(song);
+        const listItem = document.createElement('li');
+        listItem.setAttribute('data-index', originalIndex);
+        if (originalIndex === currentSongIndex) {
+            listItem.classList.add('active');
+        }
+        listItem.innerHTML = `
+            <img src="${song.albumArtUrl}" alt="${song.title}" class="playlist-song-art">
+            <div class="playlist-song-info">
+                <h4>${song.title}</h4>
+                <p>${song.artist}</p>
+            </div>
+        `;
+        listItem.addEventListener('click', () => {
+            currentSongIndex = originalIndex;
+            loadSong(songs[currentSongIndex]);
+            playTrack();
+            showPlayerPage();
+            updatePlaylistActive();
+        });
+        playlistSongs.appendChild(listItem);
+    });
+}
+
+// Search functionality
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredSongs = songs.filter(song => 
+            song.title.toLowerCase().includes(searchTerm)
+        );
+        renderPlaylist(filteredSongs);
+    });
+}
+
+function updatePlaylistActive() {
+    const playlistItems = playlistSongs.querySelectorAll('li');
+    playlistItems.forEach((item, index) => {
+        if (index === currentSongIndex) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+function init() {
+    renderSongList();
+    renderPlaylist();
+    initNavigation();
+    initSearch();
+    if (songs.length > 0) {
+        loadSong(songs[currentSongIndex]);
+    } else {
+        albumArtPlayer.src = "https://placehold.co/100x100/3a3a4e/e0e0e0?text=Music";
+        playerTrackTitle.textContent = "No Song";
+        playerTrackArtist.textContent = "Add a song";
+        lyricsContainer.innerHTML = "<p>Please add songs from the list.</p>";
+    }
+    audioPlayer.volume = playerVolumeSlider.value;
+    audioPlayer.playbackRate = playerSpeedSlider.value;
+    currentSpeedDisplay.textContent = `${audioPlayer.playbackRate.toFixed(2)}x`;
+    updatePlayPauseIcon();
+    updateRepeatButtonUI();
+    showHomePage();
 }
 
 init();

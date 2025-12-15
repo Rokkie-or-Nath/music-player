@@ -322,6 +322,18 @@ header h1 {
 .control-btn-player.play-pause-player:hover {
     color: #001b56;
 }
+.control-btn-player.repeat-off {
+    color: #e0e0e0;
+}
+
+.control-btn-player.repeat-one {
+    color: #dc3545 !important;
+}
+
+.control-btn-player.repeat-all {
+    color: #060056 !important;
+}
+
 .control-btn-player.active-feature {
     color: #001b56 !important;
 }
@@ -561,100 +573,256 @@ header h1 {
     opacity: 0.9;
 }
 
-.sidebar {
+/* Left Sidebar - Playlist */
+.left-sidebar {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     height: 100vh;
-    width: 50px;
+    width: 60px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
     transition: width 0.3s ease;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 2000;
+    display: flex;
 }
 
-.sidebar:hover {
-    width: 250px;
+.left-sidebar:hover {
+    width: 320px;
 }
 
-.sidebar-content {
+.left-sidebar-content {
     opacity: 0;
     transition: opacity 0.3s ease 0.1s;
     white-space: nowrap;
     padding: 20px;
+    width: calc(100% - 60px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.sidebar:hover .sidebar-content {
+.left-sidebar:hover .left-sidebar-content {
     opacity: 1;
 }
 
-.sidebar-icon {
+.left-sidebar-icon {
     font-size: 24px;
     transition: transform 0.3s ease;
+    color: #e0e0e0;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-.sidebar:hover .sidebar-icon {
-    transform: rotate(180deg);
+.left-sidebar:hover .left-sidebar-icon {
+    transform: rotate(360deg);
+}
+
+.search-section {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: #b3b3b3;
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.playlist-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.playlist-header h3 {
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.playlist-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.playlist-songs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.playlist-songs li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.playlist-songs li:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.playlist-songs li.active {
+    background: #8b5cf6;
+}
+
+.playlist-song-art {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.playlist-song-info h4 {
+    margin: 0 0 2px 0;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.playlist-song-info p {
+    margin: 0;
+    font-size: 10px;
+    color: #b3b3b3;
+}
+
+/* Right Sidebar - Navigation */
+.right-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 60px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    transition: width 0.3s ease;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-sidebar:hover {
+    width: 280px;
+}
+
+.right-sidebar-content {
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    white-space: nowrap;
+    padding: 20px;
+    width: 100%;
+}
+
+.right-sidebar:hover .right-sidebar-content {
+    opacity: 1;
+}
+
+.right-sidebar-icon {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+    color: #e0e0e0;
+}
+
+.right-sidebar:hover .right-sidebar-icon {
+    transform: rotate(90deg);
 }
 
 .profile-section {
     text-align: center;
-    margin-top: 0px;
-    margin-bottom: 90px;
-    padding-bottom: 20px;
+    margin-bottom: 60px;
+    padding-bottom: 30px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    
+    margin-top: -200px;
 }
 
 .profile-picture {
-    width: 150px;        
-    height: 150px;
-    border-radius: 50%;    
-    overflow: hidden;      
+    width: 165px;
+    height: 165px;
+    border-radius: 50%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px solid rgb(255, 255, 255); 
-    margin-bottom: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 3px solid rgb(255, 255, 255);
+    margin: 0 auto 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
 .profile-picture video {
-    width: 250%;
+    width: 200%;
     height: auto;
     object-fit: cover;
-    margin-top: 24px;
+    margin-top: 15px;
 }
 
 .username {
     font-weight: bold;
     font-size: 14px;
+    color: #e0e0e0;
 }
 
-.sidebar-space {
-    margin-bottom: 40px;
-}
-
-.sidebar-item {
-    margin: 15px 0;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.nav-items {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 90px;
 }
 
-.sidebar-item:last-child {
-    border-bottom: none;
-}
-
-.svg-container {
+.nav-item {
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     display: flex;
-    justify-content: center;
-    margin-bottom: 80px;
+    align-items: center;
+    gap: 10px;
+    color: #b3b3b3;
+    font-size: 14px;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transform: translateX(-5px);
+}
+
+.nav-item.active {
+    background-color: #8b5cf6;
+    color: #ffffff;
+}
+
+.nav-item i {
+    width: 16px;
+    text-align: center;
 }
 
 .blur-background {
@@ -668,12 +836,27 @@ header h1 {
     -webkit-backdrop-filter: blur(5px);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 5;
+    z-index: 1500;
     pointer-events: none;
 }
 
-.sidebar:hover ~ .blur-background {
+.left-sidebar:hover ~ .blur-background,
+.right-sidebar:hover ~ .blur-background {
     opacity: 1;
+}
+
+.playlist-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.playlist-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 3px;
 }
 
 #svg-global {
