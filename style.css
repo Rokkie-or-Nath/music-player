@@ -577,24 +577,44 @@ header h1 {
 .left-sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -320px;
     height: 100vh;
-    width: 60px;
+    width: 320px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
-    transition: width 0.3s ease;
+    transition: left 0.3s ease;
     z-index: 2000;
     display: flex;
 }
 
-.left-sidebar:hover {
-    width: 320px;
+.left-sidebar.active {
+    left: 0;
+}
+
+.search-toggle-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    background: rgba(139, 92, 246, 0.8);
+    color: #fff;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 2001;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.search-toggle-btn:hover {
+    background: rgba(139, 92, 246, 1);
+    transform: scale(1.1);
 }
 
 .left-sidebar-content {
-    opacity: 0;
-    transition: opacity 0.3s ease 0.1s;
+    opacity: 1;
     white-space: nowrap;
     padding: 20px;
     width: calc(100% - 60px);
@@ -603,22 +623,19 @@ header h1 {
     flex-direction: column;
 }
 
-.left-sidebar:hover .left-sidebar-content {
-    opacity: 1;
-}
-
 .left-sidebar-icon {
     font-size: 24px;
-    transition: transform 0.3s ease;
     color: #e0e0e0;
     width: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.left-sidebar:hover .left-sidebar-icon {
+.left-sidebar-icon:hover {
     transform: rotate(360deg);
 }
 
@@ -772,9 +789,9 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px solid rgb(255, 255, 255);
     margin: 0 auto 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    border: 4px solid #8b5cf6;
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
 }
 
 .profile-picture video {
@@ -840,7 +857,7 @@ header h1 {
     pointer-events: none;
 }
 
-.left-sidebar:hover ~ .blur-background,
+.left-sidebar.active ~ .blur-background,
 .right-sidebar:hover ~ .blur-background {
     opacity: 1;
 }
@@ -857,6 +874,169 @@ header h1 {
 .playlist-container::-webkit-scrollbar-thumb {
     background: #8b5cf6;
     border-radius: 3px;
+}
+
+/* Profile Page */
+.profile-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+}
+
+.creator-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 2rem;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.creator-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    border: 4px solid #8b5cf6;
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.creator-avatar video {
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+    object-position: center center;
+    margin: 0;
+}
+
+.creator-card h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.creator-title {
+    color: #a78bfa;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.creator-bio {
+    color: #d1d5db;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.social-link i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.social-link span {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.social-link.github { color: #f8f9fa; }
+.social-link.github:hover { background: #333; transform: translateY(-3px); }
+
+.social-link.facebook { color: #1877f2; }
+.social-link.facebook:hover { background: rgba(24, 119, 242, 0.1); transform: translateY(-3px); }
+
+.social-link.instagram { color: #e4405f; }
+.social-link.instagram:hover { background: rgba(228, 64, 95, 0.1); transform: translateY(-3px); }
+
+.social-link.tiktok { color: #000000; }
+.social-link.tiktok:hover { background: rgba(0, 0, 0, 0.1); transform: translateY(-3px); }
+
+.social-link.discord { color: #5865f2; }
+.social-link.discord:hover { background: rgba(88, 101, 242, 0.1); transform: translateY(-3px); }
+
+.social-link.linkedin { color: #0077b5; }
+.social-link.linkedin:hover { background: rgba(0, 119, 181, 0.1); transform: translateY(-3px); }
+
+.social-link.twitter { color: #1da1f2; }
+.social-link.twitter:hover { background: rgba(29, 161, 242, 0.1); transform: translateY(-3px); }
+
+.creator-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #8b5cf6;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* EchoVerse Logo */
+.echoverse-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+header .echoverse-logo {
+    font-size: 2.3rem;
+}
+
+.echo {
+    color: #8b5cf6;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.verse {
+    color: #ec4899;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
 }
 
 #svg-global {

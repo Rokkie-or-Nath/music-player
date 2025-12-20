@@ -138,6 +138,25 @@ function showHomePage() {
     playerPage.classList.remove('active');
     songDetailPage.classList.remove('active');
     homePage.classList.add('active');
+    
+    const profilePage = document.getElementById('profilePage');
+    if (profilePage) {
+        profilePage.classList.remove('active');
+    }
+    
+    // Show right sidebar when returning to home
+    const rightSidebar = document.querySelector('.right-sidebar');
+    rightSidebar.style.display = 'flex';
+    
+    // Update navigation active state
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        if (item.getAttribute('data-page') === 'home') {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
 
     bodyElement.classList.remove('player-active-bg');
     bodyElement.classList.remove('detail-active-bg');
@@ -170,6 +189,10 @@ function showPlayerPage() {
     homePage.classList.remove('active');
     songDetailPage.classList.remove('active');
     playerPage.classList.add('active');
+    
+    // Hide right sidebar when playing music
+    const rightSidebar = document.querySelector('.right-sidebar');
+    rightSidebar.style.display = 'none';
 
     bodyElement.classList.remove('detail-active-bg');
     bodyElement.classList.add('player-active-bg');
@@ -539,7 +562,7 @@ function handleNavigation(page) {
             showHomePage();
             break;
         case 'profile':
-            alert('Profile page - Coming soon!');
+            showProfilePage();
             break;
         case 'settings':
             alert('Settings page - Coming soon!');
@@ -548,11 +571,83 @@ function handleNavigation(page) {
             alert('Messages page - Coming soon!');
             break;
         case 'logout':
-            if(confirm('Are you sure you want to logout?')) {
-                alert('Logged out successfully!');
+            if(confirm('Are you sure you want to exit?')) {
+                alert('Exited successfully!');
             }
             break;
     }
+}
+
+function showProfilePage() {
+    homePage.classList.remove('active');
+    songDetailPage.classList.remove('active');
+    playerPage.classList.remove('active');
+    
+    let profilePage = document.getElementById('profilePage');
+    if (!profilePage) {
+        profilePage = document.createElement('div');
+        profilePage.id = 'profilePage';
+        profilePage.className = 'page';
+        profilePage.innerHTML = `
+            <button class="back-btn" onclick="showHomePage()"><i class="fas fa-arrow-left"></i>Back</button>
+            <div class="profile-page-container">
+                <div class="creator-card">
+                    <div class="creator-avatar">
+                        <video autoplay loop muted>
+                            <source src="videos/background.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <h2>Rokkie_or_Nath</h2>
+                    <p class="creator-title">Full Stack Developer & Music Enthusiast</p>
+                    <p class="creator-bio">Creator of EchoVerse - A passion project combining my love for music and web development. Building beautiful, functional applications one beat at a time.</p>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/Rokkie-or-Nath" target="_blank" class="social-link github">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://www.facebook.com/nathaniel.roque.923" target="_blank" class="social-link facebook">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://www.instagram.com/rokkie_or_nath/" target="_blank" class="social-link instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@rokkie_or_nath" target="_blank" class="social-link tiktok">
+                            <i class="fab fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
+                        <a href="https://discord.com/channels/@rokkie110140" target="_blank" class="social-link discord">
+                            <i class="fab fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://x.com/Rokkie_or_Nath" target="_blank" class="social-link twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                    </div>
+                    
+                    <div class="creator-stats">
+                        <div class="stat">
+                            <span class="stat-number">${songs.length}</span>
+                            <span class="stat-label">Songs Added</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2025</span>
+                            <span class="stat-label">Year Created</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number"><div class="echoverse-logo"><span class="echo">Echo</span><span class="verse">Verse</span></div></span>
+                            <span class="stat-label">Music Platform</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(profilePage);
+    }
+    profilePage.classList.add('active');
 }
 
 // Playlist functionality
@@ -610,11 +705,27 @@ function updatePlaylistActive() {
     });
 }
 
+// Search toggle functionality
+function initSearchToggle() {
+    const searchToggleBtn = document.getElementById('searchToggleBtn');
+    const leftSidebar = document.querySelector('.left-sidebar');
+    const leftSidebarIcon = document.querySelector('.left-sidebar-icon');
+    
+    searchToggleBtn.addEventListener('click', () => {
+        leftSidebar.classList.toggle('active');
+    });
+    
+    leftSidebarIcon.addEventListener('click', () => {
+        leftSidebar.classList.remove('active');
+    });
+}
+
 function init() {
     renderSongList();
     renderPlaylist();
     initNavigation();
     initSearch();
+    initSearchToggle();
     if (songs.length > 0) {
         loadSong(songs[currentSongIndex]);
     } else {
