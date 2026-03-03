@@ -144,6 +144,11 @@ function showHomePage() {
         profilePage.classList.remove('active');
     }
     
+    const settingsPage = document.getElementById('settingsPage');
+    if (settingsPage) {
+        settingsPage.classList.remove('active');
+    }
+    
     // Show right sidebar when returning to home
     const rightSidebar = document.querySelector('.right-sidebar');
     rightSidebar.style.display = 'flex';
@@ -565,14 +570,14 @@ function handleNavigation(page) {
             showProfilePage();
             break;
         case 'settings':
-            alert('Settings page - Coming soon!');
+            showSettingsPage();
             break;
         case 'messages':
             alert('Messages page - Coming soon!');
             break;
         case 'logout':
             if(confirm('Are you sure you want to exit?')) {
-                alert('Exited successfully!');
+                window.open('', '_self').close();
             }
             break;
     }
@@ -582,6 +587,11 @@ function showProfilePage() {
     homePage.classList.remove('active');
     songDetailPage.classList.remove('active');
     playerPage.classList.remove('active');
+    
+    const settingsPage = document.getElementById('settingsPage');
+    if (settingsPage) {
+        settingsPage.classList.remove('active');
+    }
     
     let profilePage = document.getElementById('profilePage');
     if (!profilePage) {
@@ -648,6 +658,62 @@ function showProfilePage() {
         document.body.appendChild(profilePage);
     }
     profilePage.classList.add('active');
+}
+
+function showSettingsPage() {
+    homePage.classList.remove('active');
+    songDetailPage.classList.remove('active');
+    playerPage.classList.remove('active');
+    
+    const profilePage = document.getElementById('profilePage');
+    if (profilePage) {
+        profilePage.classList.remove('active');
+    }
+    
+    let settingsPage = document.getElementById('settingsPage');
+    if (!settingsPage) {
+        settingsPage = document.createElement('div');
+        settingsPage.id = 'settingsPage';
+        settingsPage.className = 'page';
+        settingsPage.innerHTML = `
+            <button class="back-btn" onclick="showHomePage()"><i class="fas fa-arrow-left"></i>Back</button>
+            <div class="profile-page-container">
+                <div class="creator-card">
+                    <h2>Settings</h2>
+                    <div style="text-align: left; margin-top: 2rem; width: 100%;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: #a78bfa; font-size: 1rem;">Volume</label>
+                            <input type="range" id="settingsVolume" min="0" max="1" step="0.01" value="0.8" style="width: 100%; height: 6px; background: #404040; border-radius: 3px;">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: #a78bfa; font-size: 1rem;">Playback Speed</label>
+                            <input type="range" id="settingsSpeed" min="0.5" max="2" step="0.25" value="1" style="width: 100%; height: 6px; background: #404040; border-radius: 3px;">
+                            <span id="settingsSpeedDisplay" style="color: #8b5cf6; font-size: 0.9rem; margin-top: 0.5rem; display: inline-block;">1.0x</span>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: flex; align-items: center; color: #a78bfa; font-size: 1rem; cursor: pointer;">
+                                <input type="checkbox" id="settingsAutoplay" checked style="margin-right: 0.5rem; width: 18px; height: 18px;"> Autoplay Next Song
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(settingsPage);
+        
+        document.getElementById('settingsVolume').addEventListener('input', (e) => {
+            audioPlayer.volume = e.target.value;
+            playerVolumeSlider.value = e.target.value;
+        });
+        
+        document.getElementById('settingsSpeed').addEventListener('input', (e) => {
+            audioPlayer.playbackRate = parseFloat(e.target.value);
+            playerSpeedSlider.value = e.target.value;
+            document.getElementById('settingsSpeedDisplay').textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
+            currentSpeedDisplay.textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
+        });
+    }
+    settingsPage.classList.add('active');
 }
 
 // Playlist functionality
