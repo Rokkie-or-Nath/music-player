@@ -460,12 +460,24 @@ playerProgressBarContainer.addEventListener('click', (e) => {
 
 playerVolumeSlider.addEventListener('input', (e) => {
     audioPlayer.volume = e.target.value;
+    const settingsVolume = document.getElementById('settingsVolume');
+    if (settingsVolume) {
+        settingsVolume.value = e.target.value;
+    }
 });
 
 // Event listener for speed slider
 playerSpeedSlider.addEventListener('input', (e) => {
     audioPlayer.playbackRate = parseFloat(e.target.value);
     currentSpeedDisplay.textContent = `${audioPlayer.playbackRate.toFixed(2)}x`;
+    const settingsSpeed = document.getElementById('settingsSpeed');
+    const settingsSpeedDisplay = document.getElementById('settingsSpeedDisplay');
+    if (settingsSpeed) {
+        settingsSpeed.value = e.target.value;
+    }
+    if (settingsSpeedDisplay) {
+        settingsSpeedDisplay.textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
+    }
 });
 
 
@@ -683,12 +695,12 @@ function showSettingsPage() {
                     <div style="text-align: left; margin-top: 2rem; width: 100%;">
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: block; margin-bottom: 0.5rem; color: #a78bfa; font-size: 1rem;">Volume</label>
-                            <input type="range" id="settingsVolume" min="0" max="1" step="0.01" value="0.8" style="width: 100%; height: 6px; background: #404040; border-radius: 3px;">
+                            <input type="range" id="settingsVolume" min="0" max="1" step="0.01" value="${audioPlayer.volume}" style="width: 100%; height: 6px; background: #404040; border-radius: 3px;">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: block; margin-bottom: 0.5rem; color: #a78bfa; font-size: 1rem;">Playback Speed</label>
-                            <input type="range" id="settingsSpeed" min="0.5" max="2" step="0.25" value="1" style="width: 100%; height: 6px; background: #404040; border-radius: 3px;">
-                            <span id="settingsSpeedDisplay" style="color: #8b5cf6; font-size: 0.9rem; margin-top: 0.5rem; display: inline-block;">1.0x</span>
+                            <input type="range" id="settingsSpeed" min="0.5" max="2" step="0.25" value="${audioPlayer.playbackRate}" style="width: 100%; height: 6px; background: #404040; border-radius: 3px;">
+                            <span id="settingsSpeedDisplay" style="color: #8b5cf6; font-size: 0.9rem; margin-top: 0.5rem; display: inline-block;">${audioPlayer.playbackRate.toFixed(2)}x</span>
                         </div>
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: flex; align-items: center; color: #a78bfa; font-size: 1rem; cursor: pointer;">
@@ -712,6 +724,14 @@ function showSettingsPage() {
             document.getElementById('settingsSpeedDisplay').textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
             currentSpeedDisplay.textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
         });
+    } else {
+        // Update values if page already exists
+        const settingsVolume = document.getElementById('settingsVolume');
+        const settingsSpeed = document.getElementById('settingsSpeed');
+        const settingsSpeedDisplay = document.getElementById('settingsSpeedDisplay');
+        if (settingsVolume) settingsVolume.value = audioPlayer.volume;
+        if (settingsSpeed) settingsSpeed.value = audioPlayer.playbackRate;
+        if (settingsSpeedDisplay) settingsSpeedDisplay.textContent = `${audioPlayer.playbackRate.toFixed(2)}x`;
     }
     settingsPage.classList.add('active');
 }
