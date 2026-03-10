@@ -67,6 +67,47 @@ let songs = [
     },
     {
         id: 2,
+        title: "About you",
+        artist: "Saint evangeline",
+        album: "Saint",
+        albumArtUrl: "https://indierocks.sfo3.digitaloceanspaces.com/wp-content/uploads/2022/12/The1975-Album.png",
+        audioSrc: "audio/The 1975 - About You (Official) - The1975VEVO.mp3",
+        videoBgSrc: "videos/About_You.mp4",
+        lyrics: [
+            { time: 0, text: "-" },
+            { time: 44.8, text: "I know a place" },
+            { time: 54.5, text: "It's somewhere I go when I need to remember your face" },
+            { time: 64.4, text: "We get married in our heads" },
+            { time: 74.5, text: "Something to do while we try to recall how we met" },
+            { time: 84.2, text: "Do you think I have forgotten?" },
+            { time: 89, text: "Do you think I have forgotten?" },
+            { time: 94, text: "Do you think I have forgotten?" },
+            { time: 99.8, text: "About you" },
+            { time: 104, text: "You and I (don't let go), we're alive (don't let go)" },
+            { time: 115, text: "With nothing to do, I could lay and just look in your eyes" },
+            { time: 124.9, text: "Wait (don't let go), and pretend (don't let go)" },
+            { time: 134.8, text: "Hold on, and hope that we'll find our way back in the end (in the end)" },
+            { time: 144, text: "Do you think I have forgotten?" },
+            { time: 149.3, text: "Do you think I have forgotten?" },
+            { time: 154, text: "Do you think I have forgotten about you?" },
+            { time: 164, text: "Do you think I have forgotten?" },
+            { time: 169, text: "Do you think I have forgotten?" },
+            { time: 173.9, text: "Do you think I have forgotten about you?" },
+            { time: 184.5, text: "And there was something 'bout you that now I can't remember" },
+            { time: 188.6, text: "It's the same damn thing that made my heart surrender" },
+            { time: 194, text: "And I miss you on a train, I miss you in the morning" },
+            { time: 199, text: "I never know what to think about" },
+            { time: 203.9, text: "I think about you (don't let go)" },
+            { time: 209, text: "About you (don't let go)" },
+            { time: 214, text: "Do you think I have forgotten about you? (Don't let go)" },
+            { time: 224, text: "About you" },
+            { time: 230, text: "About you" },
+            { time: 234, text: "Do you think I have forgotten about you? (Don't let go)" },
+            
+        ]   
+    },
+    {
+        id: 3,
         title: "Stan",
         artist: "Eminem",
         album: "The Martial Mathers",
@@ -89,7 +130,7 @@ let songs = [
         ]   
     },
     {
-        id: 3,
+        id: 4,
         title: "Sad",
         artist: "xxxtentacion",
         album: "genius",
@@ -107,8 +148,8 @@ let songs = [
             { time: 27.3, text: "I'm sad, I know, yeah, I'm sad, I know, yeah" },
         ]   
     },
-        {
-        id: 4,
+    {
+        id: 5,
         title: "Lilith",
         artist: "Saint evangeline",
         album: "Saint",
