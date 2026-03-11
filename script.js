@@ -68,8 +68,8 @@ let songs = [
     {
         id: 2,
         title: "About you",
-        artist: "Saint evangeline",
-        album: "Saint",
+        artist: "the 1975",
+        album: "Exe",
         albumArtUrl: "https://indierocks.sfo3.digitaloceanspaces.com/wp-content/uploads/2022/12/The1975-Album.png",
         audioSrc: "audio/The 1975 - About You (Official) - The1975VEVO.mp3",
         videoBgSrc: "videos/About_You.mp4",
